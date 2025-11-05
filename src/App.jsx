@@ -74,7 +74,7 @@ export default function App() {
 
       {entered && (
         <div className="app">
-          <audio ref={sfxRef} src="/sfx/invoke.mp3" preload="auto" />
+          <audio ref={sfxRef} src={`${import.meta.env.BASE_URL}sfx/invoke.mp3`} preload="auto" />
 
           <header style={{ marginBottom: 8 }}>
             <h1>Dragon Ball — Cartas en 3D</h1>

@@ -1,0 +1,511 @@
+:root {
+  --bg: radial-gradient(circle at 50% 30%, #0c0c18 0%, #04070f 100%);
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --accent1: #ffb300; /* dorado */
+  --accent2: #ff6b00; /* naranja */
+  --accent3: #1e90ff; /* azul kaioken */
+  --text: #e8f0ff;
+}
+
+* { box-sizing: border-box; }
+html,body,#root { height: 100%; margin: 0; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+.app { max-width: 1300px; margin: 0 auto; padding: 32px 16px; }
+
+h1 { 
+  font-weight: 800; 
+  font-size: 2rem; 
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;
+}
+.subtitle { opacity: .8; margin-bottom: 20px; }
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 12px;
+  overflow: hidden;
+  transition: all .25s ease;
+  cursor: pointer;
+}
+.card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 25px rgba(255, 180, 0, .15);
+  border-color: rgba(255, 180, 0, .4);
+}
+.card.active {
+  border-color: var(--accent1);
+  box-shadow: 0 0 40px rgba(255, 150, 0, .3);
+}
+
+/* IMAGEN */
+.card .thumb {
+  width: 100%; height: 260px; border-radius: 12px;
+  overflow: hidden; background: #0b0e1a; display: grid; place-items: center;
+}
+.card .thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+/* META */
+.card .meta {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 10px;
+}
+.badge {
+  font-size: 12px; padding: 4px 8px; border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.details {
+  font-size: 13px; opacity: .85; margin-top: 8px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 8px;
+}
+
+/* BOTONES */
+.btn {
+  margin-top: 10px; width: 100%;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: #000;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all .2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,.25), transparent, rgba(255,255,255,.25));
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.btn:hover::before { opacity: .3; }
+.btn:hover { transform: scale(1.03); }
+
+.btn-blue {
+  background: linear-gradient(90deg, var(--accent3), #00b7ff);
+  color: #fff;
+}
+
+/* VIEWER */
+.viewer-panel {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.7);
+  display: grid; place-items: center; z-index: 1000;
+}
+.viewer-card {
+  width: min(95vw, 1000px); height: min(85vh, 700px);
+  background: var(--card-bg);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.08);
+  overflow: hidden;
+  display: grid; grid-template-rows: auto 1fr;
+}
+.viewer-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.viewer-close {
+  background: transparent; color: var(--text);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.viewer-close:hover { background: rgba(255,255,255,.1); }
+
+/* TOOLBAR */
+.toolbar {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  margin-bottom: 20px;
+}
+.input, .select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+  font-size: 14px;
+}
+.select option { background: #0c0c18; }
+.toggle {
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ===================== INTRO (DRAGON BALL) ===================== */
+.dragonball-scene {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Esferas principales */
+.sphere {
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffde66 0%, #ff9800 60%, #e65100 100%);
+  box-shadow: inset -6px -10px 16px rgba(0, 0, 0, .4),
+              0 0 40px rgba(255,160,0,.3),
+              0 0 80px rgba(255,120,0,.2);
+  animation: spinDragonBall 6s linear infinite;
+}
+
+@keyframes spinDragonBall {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.sphere.main {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sphere.small {
+  width: 70px;
+  height: 70px;
+  animation: spinDragonBall 8s linear infinite;
+}
+
+/* Estrellas dentro de las esferas */
+.sphere .star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #d72600;
+  font-size: 28px;
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(255,100,0,.8),
+               0 0 20px rgba(255,150,0,.6);
+  animation: starFloat 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes starFloat {
+  0%, 100% { transform: translate(-50%, -52%) scale(1); }
+  50% { transform: translate(-50%, -48%) scale(1.05); }
+}
+
+/* Auras */
+.sphere.main::after,
+.sphere.small::after {
+  content: "";
+  position: absolute;
+  width: 180%;
+  height: 180%;
+  border-radius: 50%;
+  top: -40%;
+  left: -40%;
+  background: radial-gradient(circle, rgba(255,200,0,.25), transparent 70%);
+  animation: pulseAura 2s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes pulseAura {
+  0%, 100% { transform: scale(1); opacity: .6; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Orbitas de las bolas pequeñas */
+.dragonball-orbit {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: rotateOrbit 20s linear infinite;
+}
+
+@keyframes rotateOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.orbit-ball {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+}
+
+.orb-1 { transform: rotate(0deg) translateX(150px); }
+.orb-2 { transform: rotate(60deg) translateX(150px); }
+.orb-3 { transform: rotate(120deg) translateX(150px); }
+.orb-4 { transform: rotate(180deg) translateX(150px); }
+.orb-5 { transform: rotate(240deg) translateX(150px); }
+.orb-6 { transform: rotate(300deg) translateX(150px); }
+
+/* ===================== TÍTULO ANIMADO ===================== */
+@font-face {
+  font-family: "SaiyanSans";
+  src: url("/fonts/Saiyan-Sans.ttf") format("truetype");
+  font-display: swap;
+}
+
+/* Estilo de logo Dragon Ball */
+.intro h2 {
+  font-family: "SaiyanSans", sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffb300;
+  -webkit-text-stroke: 3px #000; /* borde negro */
+  text-shadow: 0 0 15px rgba(255,170,0,.6), 0 0 30px rgba(255,120,0,.3);
+  animation: titleGlow 2.5s ease-in-out infinite;
+}
+
+
+@keyframes titleGlow {
+  0%, 100% { filter: brightness(1); text-shadow: 0 0 15px rgba(255,170,0,.5), 0 0 30px rgba(255,120,0,.3); }
+  50% { filter: brightness(1.3); text-shadow: 0 0 30px rgba(255,200,0,.8), 0 0 60px rgba(255,150,0,.5); }
+}
+
+/* Botón de entrada */
+.intro-btn {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  animation: btnPulse 1.8s ease-in-out infinite;
+  background: linear-gradient(90deg, #ff9100, #ffb300);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.intro-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+@keyframes btnPulse {
+  50% { filter: brightness(1.3); }
+}
+
+/* ===================== CONTENEDOR INTRO ===================== */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 40%, #05060c 0%, #010106 100%);
+  animation: introFadeOut 1s 7.5s forwards;
+}
+
+@keyframes introFadeOut {
+  to { opacity: 0; pointer-events: none; }
+}
+
+.intro-content {
+  text-align: center;
+  animation: introPop .6s ease;
+}
+
+@keyframes introPop {
+  0% { transform: scale(.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Fuente Saiyan */
+@font-face {
+  font-family: "SaiyanSans";
+  src: url("/fonts/Saiyan-Sans.ttf") format("truetype");
+  font-display: swap;
+}
+
+/* --- Logo tipo Dragon Ball Z --- */
+.dbz-title {
+  font-family: "SaiyanSans", sans-serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffb300;
+  -webkit-text-stroke: 3px #000;
+  text-shadow: 0 0 15px rgba(255,200,0,.8),
+               0 0 30px rgba(255,150,0,.6),
+               0 0 60px rgba(255,120,0,.3);
+  animation: titleEntrance 3s ease forwards;
+}
+
+@keyframes titleEntrance {
+  0% {
+    transform: scale(0.3) rotate(-10deg);
+    opacity: 0;
+    filter: brightness(0);
+  }
+  40% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  70% {
+    transform: scale(0.95);
+    filter: brightness(1.1);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* --- Aura y explosión final --- */
+.intro.aura-active::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,230,100,.25) 0%, transparent 70%);
+  z-index: 9980;
+  animation: auraPulse 2s ease-in-out infinite;
+}
+
+@keyframes auraPulse {
+  0%,100% { opacity: .6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* efecto de energía al desaparecer */
+.intro.aura-active::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,180,.9), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9998;
+  animation: energyBurst 1s ease-out 6.5s forwards;
+}
+
+@keyframes energyBurst {
+  0% { opacity: 0; transform: scale(0.5); }
+  40% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(2); }
+}
+
+/* ===================== NAVBAR / TOOLBAR ===================== */
+.toolbar.glassy{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  justify-content:space-between;
+  background: rgba(25,25,35,0.7);
+  border:1px solid rgba(255,165,0,0.25);
+  border-radius:14px;
+  padding:10px 14px; margin-bottom:18px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 24px rgba(0,0,0,.35), 0 0 12px rgba(255,160,0,.12);
+  animation: tbFade 0.5s ease;
+}
+@keyframes tbFade{from{opacity:0; transform:translateY(-8px)} to{opacity:1; transform:translateY(0)}}
+
+/* Logo compacto */
+.toolbar-logo{
+  display:flex; align-items:center; gap:8px;
+  min-width: max-content;
+}
+.db-badge{
+  display:inline-grid; place-items:center;
+  width:28px; height:28px; border-radius:8px;
+  font-weight:900;
+  background: linear-gradient(90deg, #ff9800, #ffb300);
+  color:#101010; box-shadow: 0 0 10px rgba(255,180,0,.4);
+}
+.toolbar-title{
+  font-weight:800; letter-spacing:.3px;
+  color:#ffd277; filter: drop-shadow(0 0 6px rgba(255,170,0,.35));
+}
+
+/* Buscador */
+.toolbar-search{
+  position:relative; display:flex; align-items:center; gap:8px;
+  flex:1; min-width:220px;
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:10px; padding:6px 10px;
+}
+.toolbar-search .icon{
+  color:#ffb300;
+}
+.search-input{
+  width:100%; background:transparent; border:none; outline:none;
+  color:#fff; font-size:.95rem;
+}
+.search-input::placeholder{ color: rgba(255,255,255,.6); }
+
+/* Select */
+.select{
+  appearance:none; min-width: 170px;
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:10px; color:#fff;
+  padding:7px 34px 7px 10px; font-size:.95rem;
+  cursor:pointer; transition:.2s;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' fill-opacity='0.7' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center;
+}
+.select:hover, .select:focus{
+  border-color: rgba(255,180,0,.5);
+  background-color: rgba(255,255,255,.12);
+}
+
+/* Botonera derecha */
+.toolbar-actions{
+  display:flex; align-items:center; gap:10px;
+}
+
+/* Botones redondos */
+.round-btn{
+  width:38px; height:38px; border-radius:50%;
+  display:grid; place-items:center;
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff; cursor:pointer; transition:.2s;
+}
+.round-btn:hover{
+  border-color: rgba(255,180,0,.6);
+  color:#ffb300; box-shadow: 0 0 10px rgba(255,170,0,.25);
+}
+.round-btn.active{
+  background: linear-gradient(90deg, #ff9800, #ffb300);
+  color:#101010; border-color: transparent;
+  box-shadow: 0 0 14px rgba(255,200,0,.35);
+}
+
+/* Responsive tweaks */
+@media (max-width: 720px){
+  .toolbar.glassy{ gap:10px }
+  .select{ min-width:140px }
+}
+

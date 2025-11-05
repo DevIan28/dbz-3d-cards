@@ -1,16 +1,62 @@
-# React + Vite
+# 🐉 Dragon Ball Z — 3D Cards
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Aplicación web interactiva que permite **invocar personajes de Dragon Ball Z** en 3D con animaciones, sonidos y visualización dinámica.  
+> Desarrollado con **React + Vite**, usando modelos `.glb` y la **API pública de Dragon Ball**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Demo en vivo
+🔗 **[https://devian28.github.io/dbz-3d-cards/](https://devian28.github.io/dbz-3d-cards/)**
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Características principales
 
-## Expanding the ESLint configuration
+✅ **Interfaz dinámica**  
+- Catálogo de cartas con imágenes, nombres y razas.  
+- Diseño moderno, responsivo y temático de Dragon Ball.  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✅ **Visualización 3D interactiva**  
+- Integración de `<model-viewer>` para rotar y hacer zoom.  
+- Si el personaje no tiene modelo, se muestra una versión 2D ampliada.  
+
+✅ **Integración con API**  
+- Datos en tiempo real desde [web.dragonball-api.com](https://web.dragonball-api.com).  
+- Filtro por raza, buscador de personajes y opción *“Solo 3D”*.  
+
+✅ **Efectos visuales y auditivos**  
+- Sonido de invocación (`/sfx/invoke.mp3`).  
+- Pantalla de carga animada con esferas del dragón.  
+- Fondo y aura dinámica al invocar personajes.  
+
+✅ **Optimización para GitHub Pages**  
+- Archivos `.glb` y `.mp3` cargados correctamente mediante `import.meta.env.BASE_URL`.  
+- Build limpio y ligero.  
+
+---
+
+## 🧩 Tecnologías utilizadas
+
+| Tecnología | Uso |
+|-------------|-----|
+| ⚛️ React + Vite | Framework base y bundler rápido |
+| 💠 `<model-viewer>` | Renderizado 3D interactivo |
+| 🎨 CSS3 / Flex / Animaciones | Diseño temático Dragon Ball |
+| 🔊 Audio API HTML5 | Sonidos de invocación |
+| 🌐 Dragon Ball API | Datos de personajes |
+
+---
+
+## 🛠️ Instalación local
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/DevIan28/dbz-3d-cards.git
+cd dbz-3d-cards
+
+# Instalar dependencias
+npm install
+
+# Ejecutar modo desarrollo
+npm run dev
+
